@@ -52,9 +52,6 @@ def get_question_position(arr, header_arr, button_arr):
     return result
 
 
-
-
-
 def get_option_position(arr, button_arr, get_answer_filler_position):
     pos = button_arr[-1] + 1
     result = []
@@ -66,11 +63,15 @@ def get_option_position(arr, button_arr, get_answer_filler_position):
         pos += 1
     return result
 
-def clean_option_text(text):
-    if text[-1] != '.':
-        return text+'.'
-    return text
 
+def clean_question_text(text, arr):
+    question_text = ''
+    for question in arr:
+        s = text[question]
+        question_text += ' ' + s
+    question_text += ':'
+    question_text = question_text.strip()
+    return question_text
 
 def clean_option_text(text, arr):
     options_text = ''
@@ -89,13 +90,8 @@ def combine(text):
     answer_filler_arr = get_answer_filler_position(text)
     options_arr = get_option_position(text, button_arr, answer_filler_arr)
 
-    question_text = ''
+    question_text = clean_question_text(text, question_arr)
     options_text = clean_option_text(text, options_arr)
-
-    for question in question_arr:
-        question_text += ' ' + text[question]
-    question_text += ':'
-    question_text = question_text.strip()
 
     return question_text, options_text
     
